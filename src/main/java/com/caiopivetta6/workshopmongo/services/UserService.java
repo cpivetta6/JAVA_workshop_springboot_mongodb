@@ -32,5 +32,8 @@ public class UserService {
 		return obj;
 	}
 	
+	public void delete(String id) {
+		userRepository.deleteById(id);
+	}
 	
 }
