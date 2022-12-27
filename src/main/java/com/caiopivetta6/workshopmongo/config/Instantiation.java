@@ -1,6 +1,7 @@
 package com.caiopivetta6.workshopmongo.config;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,10 @@ public class Instantiation implements CommandLineRunner {
 		Post p1 = new Post(null, Instant.parse("2023-10-02T19:54:07Z"), "Partiu Viagem", "Vou viajar para Sao Paulo. Abraços", new AuthorDTO(maria));
 		Post p2 = new Post(null, Instant.parse("2023-10-02T19:54:07Z"), "Bom dia", "Ja estou em Sao Paulo. Abraços", new AuthorDTO(maria));
 		
-		
 		postRepository.saveAll(Arrays.asList(p1, p2));
+
+		maria.getPosts().addAll(Arrays.asList(p1, p2));
+		userRepository.save(maria);
 		
 	}
 
