@@ -1,7 +1,6 @@
 package com.caiopivetta6.workshopmongo.config;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import com.caiopivetta6.workshopmongo.domain.Post;
 import com.caiopivetta6.workshopmongo.domain.User;
 import com.caiopivetta6.workshopmongo.dto.AuthorDTO;
+import com.caiopivetta6.workshopmongo.dto.CommentDTO;
 import com.caiopivetta6.workshopmongo.repository.PostRepository;
 import com.caiopivetta6.workshopmongo.repository.UserRepository;
 
@@ -38,8 +38,16 @@ public class Instantiation implements CommandLineRunner {
 		Post p1 = new Post(null, Instant.parse("2023-10-02T19:54:07Z"), "Partiu Viagem", "Vou viajar para Sao Paulo. Abraços", new AuthorDTO(maria));
 		Post p2 = new Post(null, Instant.parse("2023-10-02T19:54:07Z"), "Bom dia", "Ja estou em Sao Paulo. Abraços", new AuthorDTO(maria));
 		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!", Instant.parse("2023-10-02T19:54:07Z"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", Instant.parse("2023-10-02T19:54:07Z"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Volte Logo", Instant.parse("2023-10-02T19:54:07Z"), new AuthorDTO(bob));
+		
+		p1.getComments().addAll(Arrays.asList(c1,c2));
+		p2.getComments().add(c3);
+		
 		postRepository.saveAll(Arrays.asList(p1, p2));
-
+		
+		
 		maria.getPosts().addAll(Arrays.asList(p1, p2));
 		userRepository.save(maria);
 		
