@@ -1,5 +1,8 @@
 package com.caiopivetta6.workshopmongo.services;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,13 @@ public class PostService {
 		return postRepository.searchTitle(text);
 	}
 	
+	public List<Post> fullSearch(String text, Instant minDate, Instant maxDate){
+		//Date d = Date.from(maxDate);
+		//d = new Date(d.getTime() + 24 * 60 * 60 * 1000);
+		//maxDate = Instant.parse(maxDate + 24 * 60 * 60 * 1000);
+		//possivel problema
+		return postRepository.fullSearch(text, minDate, maxDate);
+	}
 	
 	
 }

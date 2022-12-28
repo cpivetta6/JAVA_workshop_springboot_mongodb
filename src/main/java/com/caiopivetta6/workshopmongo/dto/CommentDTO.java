@@ -3,11 +3,15 @@ package com.caiopivetta6.workshopmongo.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CommentDTO implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 	private String text;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd", timezone = "GMT")
 	private Instant date;
 	private AuthorDTO author;
 	

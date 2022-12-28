@@ -1,6 +1,11 @@
 package com.caiopivetta6.workshopmongo.resources;
 
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +45,20 @@ public class PostResource {
 		text = URL.decodeParam(text);
 		List<Post>list = service.findByTitle(text);
 		
+		return ResponseEntity.ok().body(list);
+		
+	}
+	
+	@GetMapping(value="/fullsearch")
+	public ResponseEntity<List<Post>>  fullSearch(@RequestParam(value = "text", defaultValue = " ") String text,
+												  @RequestParam(value = "minDate", defaultValue = " ") String minDate,
+												  @RequestParam(value = "maxDate", defaultValue = " ") String maxDate){
+		text = URL.decodeParam(text);
+		//possivel erro
+		Instant min = URL.convertDate(minDate, Instant.parse("2023-10-02T19:54:07Z"));
+		Instant max = URL.convertDate(maxDate, Instant.parse("2023-10-02T19:54:07Z"));
+		
+		List<Post>list = service.fullSearch(text, min, max);
 		return ResponseEntity.ok().body(list);
 		
 	}
